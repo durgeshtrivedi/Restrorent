@@ -9,15 +9,16 @@ import javax.inject.Inject;
  */
 
 public class HomeMapPresenter implements HomeContract.MapPresenter{
+
     @Nullable
     private HomeContract.MapView mapView;
 
-    private final HomeInteracter mHomeInteractor;
+    private final MapIntracter mapInteractor;
 
 
     @Inject
-    public HomeMapPresenter(HomeInteracter homeInteractor) {
-        this.mHomeInteractor = homeInteractor;
+    public HomeMapPresenter(MapIntracter mapInteractor) {
+        this.mapInteractor = mapInteractor;
     }
 
     @Override
@@ -27,5 +28,10 @@ public class HomeMapPresenter implements HomeContract.MapPresenter{
     @Override
     public void dropView() {
 
+    }
+
+    public void nearbyPlaces(double srcLat, double srcLng){
+        mapInteractor.setMapView(mapView);
+        mapInteractor.nearbyPlaces(srcLat, srcLng);
     }
 }

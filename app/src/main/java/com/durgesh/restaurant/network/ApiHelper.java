@@ -1,9 +1,9 @@
 package com.durgesh.restaurant.network;
 
-import com.durgesh.restaurant.models.Hotel;
-import com.durgesh.restaurant.models.ImageCompareResponse;
-import com.durgesh.restaurant.models.PlaceDetails;
-import com.durgesh.restaurant.models.PlacesAutoCompleteData;
+import com.durgesh.restaurant.models.googlePlaces.Hotel;
+import com.durgesh.restaurant.models.googlePlaces.ImageCompareResponse;
+import com.durgesh.restaurant.models.googlePlaces.PlaceDetails;
+import com.durgesh.restaurant.models.googlePlaces.PlacesAutoCompleteData;
 import com.durgesh.restaurant.models.googleDir.RootGoogleDir;
 import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
 

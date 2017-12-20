@@ -18,8 +18,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.durgesh.restaurant.R;
-import com.durgesh.restaurant.models.ImageCompareResponse;
-import com.durgesh.restaurant.models.Ingredients;
+import com.durgesh.restaurant.models.googlePlaces.ImageCompareResponse;
+import com.durgesh.restaurant.models.googlePlaces.Ingredients;
 import com.durgesh.restaurant.network.ApiClient;
 
 import java.io.ByteArrayOutputStream;

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +30,8 @@ public class RootGooglePlaces implements Parcelable {
         }
     };
     private String next_page_token;
-    private ArrayList<Results> results;
-    private ArrayList<String> html_attributions;
+    private List<Result> results;
+    private List<String> html_attributions;
     private String status;
 
     public RootGooglePlaces() {
@@ -38,8 +39,8 @@ public class RootGooglePlaces implements Parcelable {
 
     public RootGooglePlaces(Parcel in) {
         this.next_page_token = in.readString();
-        this.results = new ArrayList<Results>();
-        in.readList(this.results, Results.class.getClassLoader());
+        this.results = new ArrayList<Result>();
+        in.readList(this.results, Result.class.getClassLoader());
         this.html_attributions = in.createStringArrayList();
         this.status = in.readString();
     }

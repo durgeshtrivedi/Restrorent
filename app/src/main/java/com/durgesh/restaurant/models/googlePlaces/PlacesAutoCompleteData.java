@@ -1,4 +1,4 @@
-package com.durgesh.restaurant.models;
+package com.durgesh.restaurant.models.googlePlaces;
 
 import android.os.Parcel;
 import android.os.Parcelable;

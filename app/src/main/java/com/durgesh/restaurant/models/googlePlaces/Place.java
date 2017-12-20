@@ -3,8 +3,6 @@ package com.durgesh.restaurant.models.googlePlaces;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.durgesh.restaurant.models.OpeningHours;
-
 import java.util.ArrayList;
 
 import lombok.Getter;

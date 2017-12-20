@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.durgesh.restaurant.R;
 import com.durgesh.restaurant.models.googlePlaces.Place;
 import com.durgesh.restaurant.network.ApiClient;
+import com.durgesh.restaurant.network.ApiHelper;
 import com.durgesh.restaurant.ui.homeLocation.OnItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,11 +35,11 @@ import retrofit2.Response;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private Context mContext;
-     private ArrayList<Place> placeArrayList;
+     private List<Place> placeArrayList;
     private OnItemClickListener onItemClickListener;
-    private com.durgesh.restaurant.network.ApiHelper service;
+    private ApiHelper service;
 
-    public HomeListAdapter(Context context, ArrayList<Place> placeArrayList,
+    public HomeListAdapter(Context context, List<Place> placeArrayList,
                            OnItemClickListener onItemClickListener) {
         this.mContext = context;
         this.placeArrayList = placeArrayList;

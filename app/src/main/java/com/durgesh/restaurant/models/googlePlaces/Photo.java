@@ -13,22 +13,22 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class PhotoUrl implements Parcelable {
-    public static final Creator<PhotoUrl> CREATOR = new Creator<PhotoUrl>() {
+public class Photo implements Parcelable {
+    public static final Creator<Photo> CREATOR = new Creator<Photo>() {
         @Override
-        public PhotoUrl createFromParcel(Parcel in) {
-            return new PhotoUrl(in);
+        public Photo createFromParcel(Parcel in) {
+            return new Photo(in);
         }
 
         @Override
-        public PhotoUrl[] newArray(int size) {
-            return new PhotoUrl[size];
+        public Photo[] newArray(int size) {
+            return new Photo[size];
         }
     };
     private Integer height;
     private String photo_reference;
 
-    protected PhotoUrl(Parcel in) {
+    protected Photo(Parcel in) {
         height = in.readInt();
         photo_reference = in.readString();
     }

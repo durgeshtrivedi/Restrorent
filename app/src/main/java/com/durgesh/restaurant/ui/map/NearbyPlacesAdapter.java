@@ -15,12 +15,13 @@ import android.widget.Toast;
 import com.durgesh.restaurant.R;
 import com.durgesh.restaurant.models.googleDir.RootGoogleDir;
 import com.durgesh.restaurant.models.googlePlaces.Place;
-import com.durgesh.restaurant.models.googlePlaces.Results;
+import com.durgesh.restaurant.models.googlePlaces.Result;
 import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
 import com.durgesh.restaurant.network.ApiClient;
 import com.durgesh.restaurant.network.ApiHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,15 +35,15 @@ import retrofit2.Response;
 public class NearbyPlacesAdapter extends RecyclerView.Adapter<NearbyPlacesAdapter.MyViewHolder> {
 
     public RootGooglePlaces rootGooglePlaces;
-    public ArrayList<Results> resultsArrayList;
+    public List<Result> resultsArrayList;
     private Context mContext;
     private int selectedCardPos;
-    private ArrayList<Place> placeArrayList;
+    private List<Place> placeArrayList;
 
     private NearbyPlacesAdapter.OnCardItemClickListener onCardItemClickListener;
 
-    public NearbyPlacesAdapter(Context mContext, int selectedCardPos, ArrayList<Place> placeArrayList,
-                               ArrayList<Results> resultsArrayList, RootGooglePlaces rootGooglePlaces,
+    public NearbyPlacesAdapter(Context mContext, int selectedCardPos, List<Place> placeArrayList,
+                               List<Result> resultsArrayList, RootGooglePlaces rootGooglePlaces,
                                NearbyPlacesAdapter.OnCardItemClickListener onCardItemClickListener) {
         this.mContext = mContext;
         this.rootGooglePlaces = rootGooglePlaces;
@@ -64,8 +65,9 @@ public class NearbyPlacesAdapter extends RecyclerView.Adapter<NearbyPlacesAdapte
         ApiHelper service;
         holder.bind(position, resultsArrayList.get(position), onCardItemClickListener);
         holder.mTxtHotelName.setText(rootGooglePlaces.getResults().get(position).getName());
-        if (rootGooglePlaces.getResults().get(position).getRating() != null) {
-            holder.mTxtRating.setText(rootGooglePlaces.getResults().get(position).getRating());
+        String rating = null; //rootGooglePlaces.getResults().get(position).getRating();  / This was giving error please verify
+        if (rating != null) {
+            holder.mTxtRating.setText(rating);
         } else {
             holder.mTxtRating.setText("0.0");
         }
@@ -151,7 +153,7 @@ public class NearbyPlacesAdapter extends RecyclerView.Adapter<NearbyPlacesAdapte
     }
 
     public interface OnCardItemClickListener {
-        void onCardClick(int position, Results results);
+        void onCardClick(int position, Result results);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -170,7 +172,7 @@ public class NearbyPlacesAdapter extends RecyclerView.Adapter<NearbyPlacesAdapte
         }
 
         public void bind(final int position,
-                         final Results results,
+                         final Result results,
                          final NearbyPlacesAdapter.OnCardItemClickListener onCardItemClickListener) {
             mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override

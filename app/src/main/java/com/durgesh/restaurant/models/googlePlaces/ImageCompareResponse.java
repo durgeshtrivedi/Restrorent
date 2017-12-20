@@ -1,4 +1,4 @@
-package com.durgesh.restaurant.models;
+package com.durgesh.restaurant.models.googlePlaces;
 
 import java.util.List;
 

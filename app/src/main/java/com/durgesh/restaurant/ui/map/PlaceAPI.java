@@ -3,7 +3,7 @@ package com.durgesh.restaurant.ui.map;
 import android.content.Context;
 import android.util.Log;
 
-import com.durgesh.restaurant.models.Prediction;
+import com.durgesh.restaurant.models.googlePlaces.Prediction;
 
 import org.json.JSONArray;
 import org.json.JSONException;

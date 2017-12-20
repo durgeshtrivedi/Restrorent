@@ -2,7 +2,6 @@ package com.durgesh.restaurant.models.googlePlaces;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.durgesh.restaurant.models.googleDir.Northeast;
 import com.durgesh.restaurant.models.googleDir.Southwest;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
 
 /**
  * Created by Prajakta Patil on 4/9/17.
-
+ * Copyright © 2017 Synerzip. All rights reserved
  */
 @Getter
 @Setter

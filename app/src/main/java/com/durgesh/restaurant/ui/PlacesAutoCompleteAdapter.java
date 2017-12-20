@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import com.durgesh.restaurant.models.Prediction;
+import com.durgesh.restaurant.models.googlePlaces.Prediction;
 import com.durgesh.restaurant.ui.map.PlaceAPI;
 
 import java.util.ArrayList;

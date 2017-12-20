@@ -1,4 +1,4 @@
-package com.durgesh.restaurant.models;
+package com.durgesh.restaurant.models.googlePlaces;
 
 /**
  * Created by Snehal Tembare on 30/8/17.

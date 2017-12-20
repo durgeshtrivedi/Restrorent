@@ -4,17 +4,18 @@ package com.durgesh.restaurant.ui.home;
  * Created by durgeshtrivedi on 15/12/17.
  */
 
-import android.app.Activity;
 import android.location.Address;
 import android.location.Location;
 
-import com.durgesh.restaurant.models.Result;
 import com.durgesh.restaurant.models.googlePlaces.Place;
+import com.durgesh.restaurant.models.googlePlaces.Result;
+import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
 import com.durgesh.restaurant.ui.BasePresenter;
 import com.durgesh.restaurant.ui.BaseView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Response;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -28,10 +29,9 @@ public interface HomeContract {
         void updateAddress(List<Address> addresses);
         void showProgressDialog();
         void dissmissDialog();
-        void updateRestaurantCount(List<Result> resultArrayList);
+        void updateRestaurantCount(int count);
         void updateView();
-        Activity activity();
-        void loadHomeList(ArrayList<Place> placeArrayList);
+        void loadHomeList(List<Place> placeArrayList);
     }
 
     interface Presenter extends BasePresenter<HomeView> {
@@ -55,11 +55,16 @@ public interface HomeContract {
     }
 
     interface MapView extends BaseView<MapPresenter> {
-
+        void updateView(int visibility, float alpha);
+        void createLayoutManager(final Response<RootGooglePlaces> response);
+        void setNearbyPlacesList(Response<RootGooglePlaces> response, List<Place> placeList);
+        void setMapMarker(
+                final List<Result> resultArrayList, final RootGooglePlaces rootGooglePlaces);
+        void createSnapHelper();
     }
 
     interface MapPresenter extends BasePresenter<MapView> {
-
+        void nearbyPlaces(double srcLat, double srcLng);
     }
 }
 

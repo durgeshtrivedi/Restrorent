@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.durgesh.restaurant.R;
-import com.durgesh.restaurant.models.Result;
 import com.durgesh.restaurant.models.googlePlaces.Place;
 import com.durgesh.restaurant.ui.currentLocation.CurrentLocationActivity;
 import com.durgesh.restaurant.ui.details.DetailsActivity;
@@ -28,7 +27,6 @@ import com.durgesh.restaurant.ui.home.HomeListAdapter;
 import com.durgesh.restaurant.ui.homeLocation.HomeLocationActivity;
 import com.durgesh.restaurant.ui.homeLocation.OnItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,8 +47,8 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
     HomeContract.Presenter mPresenter;
 
     public interface  HomeListConstant {
-        static final int ACCESS_FINE_LOCATION  = 1;
-        static final String  TAG = "HomeListFragment";
+         int ACCESS_FINE_LOCATION  = 1;
+         String  TAG = "HomeListFragment";
 
     }
 
@@ -78,7 +76,7 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
     @BindView(R.id.txt_sort)
     protected TextView mTxtSort;
 
-    private Activity mActivity;
+  //  private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +117,6 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mPresenter.takeView(this);
         super.onViewCreated(view, savedInstanceState);
-        mActivity = getActivity();
         Log.v(HomeListConstant.TAG, "onViewCreated");
         showProgressDialog();
         mPresenter.getUserLocation();
@@ -141,13 +138,13 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
         }
     }
 
-    public void updateRestaurantCount(List<Result> resultArrayList) {
-        mTxtRestaurantsCount.setText(String.valueOf(resultArrayList.size()) + " Restaurants");
+    public void updateRestaurantCount(int count) {
+        mTxtRestaurantsCount.setText(String.valueOf(count) + " Restaurants");
     }
     @Override
     public void showProgressDialog() {
         if (mDialog == null) {
-            mDialog = new ProgressDialog(mActivity);
+            mDialog = new ProgressDialog(getActivity());
             mDialog.setMessage(getString(R.string.please_wait));
         }
        mDialog.show();
@@ -161,7 +158,7 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
         mTxtSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(mActivity, v);
+                PopupMenu popupMenu = new PopupMenu(getActivity(), v);
                 popupMenu.inflate(R.menu.menu_sort);
                 popupMenu.show();
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -195,7 +192,7 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.v(HomeListConstant.TAG, "onAttach");
-        mActivity = activity;
+        //mActivity = activity;
     }
 
     @Override
@@ -208,11 +205,11 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
 
     @OnClick(R.id.txt_filter)
     public void openSecondActivity() {
-        startActivity(new Intent(mActivity, DetailsActivity.class));
+        startActivity(new Intent(getActivity(), DetailsActivity.class));
     }
 
 
-    public void loadHomeList(ArrayList<Place> placeArrayList) {
+    public void loadHomeList(List<Place> placeArrayList) {
         mListAdapter = new HomeListAdapter(activity(), placeArrayList, new OnItemClickListener() {
             @Override
             public void onItemClick(Place place) {
@@ -223,7 +220,7 @@ public class HomeListFragment extends DaggerFragment implements HomeContract.Hom
     }
     @Override
     public void updateView() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mListAdapter);
         mListAdapter.notifyDataSetChanged();
     }

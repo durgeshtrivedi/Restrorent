@@ -6,13 +6,16 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.durgesh.restaurant.R;
-import com.durgesh.restaurant.models.Hotel;
-import com.durgesh.restaurant.models.OpeningHours;
-import com.durgesh.restaurant.models.Result;
+import com.durgesh.restaurant.models.googlePlaces.Hotel;
+import com.durgesh.restaurant.models.googlePlaces.OpeningHours;
+import com.durgesh.restaurant.models.googlePlaces.Result;
 import com.durgesh.restaurant.models.googlePlaces.Place;
+import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
+import com.durgesh.restaurant.network.ApiClient;
 import com.durgesh.restaurant.network.ApiHelper;
 import com.durgesh.restaurant.network.NetworkHelper;
 import com.durgesh.restaurant.ui.home.fragments.HomeListFragment;
@@ -36,23 +39,11 @@ import retrofit2.Response;
  * Created by durgeshtrivedi on 15/12/17.
  */
 
-public class HomeInteracter {
+public class HomeInteracter extends  Interacter {
 
     private HomeContract.Presenter  presenter;
 
-    private HomeContract.MapPresenter  mapPresenter;
-
     private HomeContract.HomeView  homeView;
-
-    private Context context;
-
-    private ApiHelper service;
-
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    private Location mLastKnownLocation;
-
-    private ArrayList<Place> placeArrayList;
 
     @Inject
     public HomeInteracter() {
@@ -60,14 +51,13 @@ public class HomeInteracter {
     }
     public void setHomeView(HomeContract.HomeView  homeView) {
         this.homeView = homeView;
+        this.view = homeView;
     }
     public void setPresenter(HomeContract.Presenter  presenter) {
         this.presenter = presenter;
     }
 
-    public void setMapPresenter(HomeContract.MapPresenter  presenter) {
-        this.mapPresenter = presenter;
-    }
+
 
     public void getUserLocation() {
         context = homeView.activity().getApplicationContext();
@@ -104,6 +94,7 @@ public class HomeInteracter {
         }
     }
 
+
     public void getPlaces(double lat, double lng) {
         context = homeView.activity().getApplicationContext();
         callPlaceAPI(lat, lng);
@@ -121,7 +112,9 @@ public class HomeInteracter {
                     if (response.body() != null) {
                         homeView.dissmissDialog();
                         Log.v("Retrofit response", "" + response.body().toString());
-                        populateResult(response);
+                        //Place API call
+                        List<Result> resultArrayList = response.body().getResults();
+                        populateResult(resultArrayList);
                     }
                 }
                 homeView.dissmissDialog();
@@ -135,77 +128,15 @@ public class HomeInteracter {
 
     }
 
-    private void populateResult(Response<Hotel> response) {
-        List<Result> resultArrayList = response.body().getResults();
-
-        //Place API call
-        if (resultArrayList != null) {
-            if (resultArrayList.size() == 0) {
-                Toast.makeText(homeView.activity(), R.string.data_not_found, Toast.LENGTH_LONG).show();
-            } else {
-
-                placeArrayList = new ArrayList<>();
-                Log.v("Size", "" + resultArrayList.size());
-                homeView.updateRestaurantCount(resultArrayList);
-
-                for (int index = 0; index < (resultArrayList.size() - 1); index++) {
-                    Location destination = getLocation(index, resultArrayList);
-                    OpeningHours openingHours = getOpeningHours(index, resultArrayList);
-                    Place place = getPlace(index, destination,resultArrayList, openingHours);
-                    placeArrayList.add(place);
-                }
-
-                homeView.loadHomeList(placeArrayList);
-                homeView.updateView();
-
-            }
-        }
-    }
-
-    private Place getPlace(int index, Location destination, List<Result> resultArrayList, OpeningHours openingHours) {
-        Place place = null;
-        if (resultArrayList.get(index) != null && resultArrayList.get(index).getPhotos() != null &&
-                resultArrayList.get(index).getPhotos().get(0) != null &&
-                resultArrayList.get(index).getPhotos().get(0).getPhoto_reference() != null
-                && openingHours != null) {
-            place = new Place(resultArrayList.get(index).getName(),
-                    resultArrayList.get(index).getRating(), null,
-                    destination.distanceTo(mLastKnownLocation),
-                    resultArrayList.get(index).getPhotos().get(0).getPhoto_reference(),
-                    openingHours);
-        } else {
-            place = new Place(resultArrayList.get(index).getName(),
-                    resultArrayList.get(index).getRating(), null,
-                    destination.distanceTo(mLastKnownLocation),
-                    null, null);
-        }
-        return place;
-    }
-
-
-    private OpeningHours getOpeningHours(int index, List<Result> resultArrayList) {
-        OpeningHours openingHours;
-        if (resultArrayList.get(index).getOpening_hours() != null) {
-            if (resultArrayList.get(index).getOpening_hours().getWeekday_text() != null) {
-                openingHours = new OpeningHours(resultArrayList.get(index).getOpening_hours().isOpen_now(),
-                        resultArrayList.get(index).getOpening_hours().getWeekday_text());
-            } else {
-                openingHours = new OpeningHours(resultArrayList.get(index).getOpening_hours().isOpen_now(),
-                        null);
-            }
-
-        } else {
-            openingHours = new OpeningHours(true, null);
+    private void populateResult( List<Result> resultArrayList) {
+        List <Place> placeList = createPlaceList(resultArrayList);
+        int count = placeList.size();
+                if (count > 0) {
+            Log.v("Size", "" + count);
+            homeView.updateRestaurantCount(count);
+            homeView.loadHomeList(placeList);
+            homeView.updateView();
         }
 
-        return openingHours;
-    }
-
-    private Location getLocation(int index,List<Result> resultArrayList ) {
-      Location destination =  new Location("Destination");
-        destination.setLatitude(resultArrayList.get(index).getGeometry().getLocation().getLat());
-        destination.setLongitude(resultArrayList.get(index).getGeometry().getLocation().getLng());
-        Log.v(HomeListFragment.HomeListConstant.TAG, "******" + resultArrayList.get(0).getName());
-        return destination;
     }
 }

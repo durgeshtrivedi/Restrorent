@@ -20,8 +20,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.durgesh.restaurant.R;
-import com.durgesh.restaurant.models.PlaceDetails;
-import com.durgesh.restaurant.models.Prediction;
+import com.durgesh.restaurant.models.googlePlaces.PlaceDetails;
+import com.durgesh.restaurant.models.googlePlaces.Prediction;
 import com.durgesh.restaurant.network.ApiClient;
 import com.durgesh.restaurant.ui.PlacesAutoCompleteAdapter;
 import com.durgesh.restaurant.ui.RecentSearchAdapter;
@@ -209,8 +209,8 @@ public class HomeLocationActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     Log.v(TAG, "lat" + response.body().getResult().getGeometry().getLocation().getLat());
                                     Log.v(TAG, "lng" + response.body().getResult().getGeometry().getLocation().getLng());
-                                    lat = response.body().getResult().getGeometry().getLocation().getLat();
-                                    lng = response.body().getResult().getGeometry().getLocation().getLng();
+                                     lat = Double.parseDouble(response.body().getResult().getGeometry().getLocation().getLat());
+                                     lng = Double.parseDouble(response.body().getResult().getGeometry().getLocation().getLng());
 
                                     Intent intent = new Intent();
                                     intent.putExtra("lat", lat);

@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 
 import com.durgesh.restaurant.R;
 import com.durgesh.restaurant.models.googlePlaces.Place;
-import com.durgesh.restaurant.models.googlePlaces.Results;
+import com.durgesh.restaurant.models.googlePlaces.Result;
 import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
 import com.durgesh.restaurant.network.ApiClient;
 import com.durgesh.restaurant.network.ApiHelper;
@@ -79,7 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private ArrayList<Place> placeArrayList;
 
-    private List<Results> resultArrayList;
+    private List<Result> resultArrayList;
 
     private Place place;
 
@@ -218,7 +218,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             response.body(),
                             new NearbyPlacesAdapter.OnCardItemClickListener() {
                                 @Override
-                                public void onCardClick(int position, Results results) {
+                                public void onCardClick(int position, Result results) {
                                     selectedCardPos = position;
 
                                     startActivity(new Intent(MapsActivity.this, DetailsActivity.class));

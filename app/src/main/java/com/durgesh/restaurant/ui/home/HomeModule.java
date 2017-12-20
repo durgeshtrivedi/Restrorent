@@ -45,6 +45,11 @@ public abstract class HomeModule {
 
     abstract HomeInteracter getHomeInteracter();
 
+   // abstract MapIntracter getMapInteracter();
+
+    @Provides
+    static MapIntracter provideMapIntracter() {return new MapIntracter();}
+
     @Provides
     static HomeContract.Presenter provideHomePresenter(HomeInteracter interactor) {
         HomeContract.Presenter  presenter = new HomePresenter(interactor);
@@ -53,7 +58,7 @@ public abstract class HomeModule {
     }
 
     @Provides
-    static HomeContract.MapPresenter provideHomeMapPresenter(HomeInteracter interactor) {
+    static HomeContract.MapPresenter provideHomeMapPresenter(MapIntracter interactor) {
         HomeContract.MapPresenter  presenter = new HomeMapPresenter(interactor);
         interactor.setMapPresenter(presenter);
         return presenter;
