@@ -27,7 +27,7 @@ import javax.inject.Inject;
 @ActivityScoped
 final class HomePresenter implements HomeContract.Presenter {
 
-    private final HomeInteracter mHomeInteractor;
+    private final HomeInteractor mHomeInteractor;
 
     private double latitude;
 
@@ -39,7 +39,7 @@ final class HomePresenter implements HomeContract.Presenter {
     private HomeContract.HomeView homeView;
 
     @Inject
-    public HomePresenter(HomeInteracter homeInteractor) {
+    public HomePresenter(HomeInteractor homeInteractor) {
         this.mHomeInteractor = homeInteractor;
     }
 

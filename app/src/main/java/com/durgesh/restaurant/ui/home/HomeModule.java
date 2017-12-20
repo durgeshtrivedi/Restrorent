@@ -43,22 +43,22 @@ public abstract class HomeModule {
     @ContributesAndroidInjector
     abstract ProfileFragment profileFragment();
 
-    abstract HomeInteracter getHomeInteracter();
+    abstract HomeInteractor getHomeInteracter();
 
-   // abstract MapIntracter getMapInteracter();
-
-    @Provides
-    static MapIntracter provideMapIntracter() {return new MapIntracter();}
+   // abstract MapInteractor getMapInteracter();
 
     @Provides
-    static HomeContract.Presenter provideHomePresenter(HomeInteracter interactor) {
+    static MapInteractor provideMapIntracter() {return new MapInteractor();}
+
+    @Provides
+    static HomeContract.Presenter provideHomePresenter(HomeInteractor interactor) {
         HomeContract.Presenter  presenter = new HomePresenter(interactor);
         interactor.setPresenter(presenter);
         return presenter;
     }
 
     @Provides
-    static HomeContract.MapPresenter provideHomeMapPresenter(MapIntracter interactor) {
+    static HomeContract.MapPresenter provideHomeMapPresenter(MapInteractor interactor) {
         HomeContract.MapPresenter  presenter = new HomeMapPresenter(interactor);
         interactor.setMapPresenter(presenter);
         return presenter;

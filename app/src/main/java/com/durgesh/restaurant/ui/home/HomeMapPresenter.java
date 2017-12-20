@@ -13,11 +13,11 @@ public class HomeMapPresenter implements HomeContract.MapPresenter{
     @Nullable
     private HomeContract.MapView mapView;
 
-    private final MapIntracter mapInteractor;
+    private final MapInteractor mapInteractor;
 
 
     @Inject
-    public HomeMapPresenter(MapIntracter mapInteractor) {
+    public HomeMapPresenter(MapInteractor mapInteractor) {
         this.mapInteractor = mapInteractor;
     }
 

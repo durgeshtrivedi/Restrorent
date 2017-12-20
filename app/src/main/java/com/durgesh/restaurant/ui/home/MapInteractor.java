@@ -20,7 +20,7 @@ import retrofit2.Response;
  * Created by durgeshtrivedi on 20/12/17.
  */
 
-public class MapIntracter extends  Interacter {
+public class MapInteractor extends Interactor {
 
     private HomeContract.MapView  mapView;
 

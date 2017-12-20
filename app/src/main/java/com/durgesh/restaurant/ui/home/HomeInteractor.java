@@ -1,31 +1,20 @@
 package com.durgesh.restaurant.ui.home;
 
-import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.durgesh.restaurant.R;
 import com.durgesh.restaurant.models.googlePlaces.Hotel;
-import com.durgesh.restaurant.models.googlePlaces.OpeningHours;
 import com.durgesh.restaurant.models.googlePlaces.Result;
 import com.durgesh.restaurant.models.googlePlaces.Place;
-import com.durgesh.restaurant.models.googlePlaces.RootGooglePlaces;
-import com.durgesh.restaurant.network.ApiClient;
-import com.durgesh.restaurant.network.ApiHelper;
 import com.durgesh.restaurant.network.NetworkHelper;
-import com.durgesh.restaurant.ui.home.fragments.HomeListFragment;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,14 +28,14 @@ import retrofit2.Response;
  * Created by durgeshtrivedi on 15/12/17.
  */
 
-public class HomeInteracter extends  Interacter {
+public class HomeInteractor extends Interactor {
 
     private HomeContract.Presenter  presenter;
 
     private HomeContract.HomeView  homeView;
 
     @Inject
-    public HomeInteracter() {
+    public HomeInteractor() {
 
     }
     public void setHomeView(HomeContract.HomeView  homeView) {

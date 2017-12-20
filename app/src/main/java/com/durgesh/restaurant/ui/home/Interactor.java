@@ -22,7 +22,7 @@ import java.util.List;
  * Created by durgeshtrivedi on 20/12/17.
  */
 
-public class Interacter {
+public class Interactor {
 
     protected Context context;
 

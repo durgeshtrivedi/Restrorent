@@ -26,11 +26,17 @@ public interface HomeContract {
     interface HomeView extends BaseView<Presenter> {
 
         void showPopUpMenu();
+
         void updateAddress(List<Address> addresses);
+
         void showProgressDialog();
+
         void dissmissDialog();
+
         void updateRestaurantCount(int count);
+
         void updateView();
+
         void loadHomeList(List<Place> placeArrayList);
     }
 
@@ -56,10 +62,14 @@ public interface HomeContract {
 
     interface MapView extends BaseView<MapPresenter> {
         void updateView(int visibility, float alpha);
+
         void createLayoutManager(final Response<RootGooglePlaces> response);
+
         void setNearbyPlacesList(Response<RootGooglePlaces> response, List<Place> placeList);
+
         void setMapMarker(
                 final List<Result> resultArrayList, final RootGooglePlaces rootGooglePlaces);
+
         void createSnapHelper();
     }
 
